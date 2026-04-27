@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'WEmanagerstyle.css' %}">
+
+<div class="card" style="max-width: 500px; margin: auto;">
+    <h2>Nouvel Abonné</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="nom" placeholder="Nom complet" required style="width:100%; padding:10px; margin:5px 0;">
+        <input type="text" name="telephone" placeholder="Téléphone" style="width:100%; padding:10px; margin:5px 0;">
+        <input type="text" name="numero_compteur" placeholder="N° Compteur" style="width:100%; padding:10px; margin:5px 0;">
+        <select name="type_abonnement" style="width:100%; padding:10px; margin:5px 0;">
+            <option value="Eau">Eau</option>
+            <option value="Electricité">Électricité</option>
+        </select>
+        <button type="submit" class="btn btn-success">Enregistrer</button>
+        <a href="{% url 'abonnes' %}">Annuler</a>
+    </form>
+</div>

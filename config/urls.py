@@ -16,15 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from WEmanager import views
-
+from WEmanager import views  
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('releve/', views.enregistrement_relevé, name="relevés"),
-    path('abonne/', views.enregistrement_abonne, name="abonnés"),
-    path('facture/', views.enregistrement_facture, name="factures"), 
-    path('paiement/', views.enregistrement_paiement, name="paiements"),
+    path('releve/', views.enregistrement_relevé, name='relevé'),
+    path('abonne/', views.enregistrement_abonne, name="abonné"),
+    path('facture/', views.enregistrement_facture, name="facture"), 
+    path('paiement/', views.enregistrement_paiement, name="paiement"),
     path('login/', views.login_view, name='login'),         
     path('logout/', views.logout_view, name='logout'),
     path('signup/', views.signup_view, name='signup'),  

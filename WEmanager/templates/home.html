@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
         {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEmanager</title>
-    <link rel="stylesheet" href="{% static '/css/WEmanagerstyle.css' %}">
 </head>
 <body>
-    <div class="container">
-   <div class="sidebarnav">
+   <div>
     
     {% if user.is_authenticated %}
 
@@ -28,7 +26,7 @@
     {% endif %}
    </div> 
 
-   <div class="main-content">
+   <div>
     <h1>Bienvenue sur WEmanager</h1>
     <p>Gérez vos abonnés, relevés, factures et paiements en toute simplicité.</p>
     {% if user.is_authenticated %}
@@ -36,7 +34,6 @@
     {% else %}
         <p><a href="{% url 'login' %}">Connexion</a> | <a href="{% url 'signup' %}">Inscription</a></p>
     {% endif %}
-   </div>
    </div>
 </body>
 </html>

@@ -1,0 +1,30 @@
+DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'WEmanagerstyle.css' %}">
+
+
+
+
+
+<div class="card" style="max-width: 500px; margin: auto;">
+    <h2>Modifier la Facture n°{{ facture.id }}</h2>
+    <p>Abonné : <strong>{{ facture.abonne_id.nom }}</strong></p>
+    <form method="post">
+        {% csrf_token %}
+        
+        <label>Montant (FCFA)</label>
+        <input type="number" name="montant" value="{{ facture.montant }}" style="width:100%; padding:10px; margin:10px 0;">
+
+        <label>Statut du paiement</label>
+        <select name="statut" style="width:100%; padding:10px; margin:10px 0;">
+            <option value="En attente" {% if facture.statut == 'En attente' %}selected{% endif %}>En attente (Impayé)</option>
+            <option value="Payé" {% if facture.statut == 'Payé' %}selected{% endif %}>Payé</option>
+        </select>
+
+        <button type="submit" class="btn btn-success" style="width:100%;">Enregistrer les modifications</button>
+        <a href="{% url 'factures' %}" style="display:block; text-align:center; margin-top:10px;">Annuler</a>
+    </form>
+</div>
