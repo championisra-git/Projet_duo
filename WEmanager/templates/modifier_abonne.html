@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'WEmanagerstyle.css' %}">
+
+<div class="container">
+    <div class="card" style="max-width: 500px; margin: auto; padding: 20px; background: white; border-radius: 8px;">
+        <h2>Modifier l'abonné : {{ abonne.nom }}</h2>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            
+            <label>Nom complet</label>
+            <input type="text" name="nom" value="{{ abonne.nom }}" required 
+                   style="width:100%; padding:10px; margin:8px 0; border:1px solid #ccc;">
+
+            <label>Téléphone</label>
+            <input type="text" name="telephone" value="{{ abonne.telephone }}" 
+                   style="width:100%; padding:10px; margin:8px 0; border:1px solid #ccc;">
+
+            <label>N° Compteur</label>
+            <input type="text" name="numero_compteur" value="{{ abonne.numero_compteur }}" 
+                   style="width:100%; padding:10px; margin:8px 0; border:1px solid #ccc;">
+
+            <label>Type d'abonnement</label>
+            <select name="type_abonnement" style="width:100%; padding:10px; margin:8px 0;">
+                <option value="Eau" {% if abonne.type_abonne == 'Eau' %}selected{% endif %}>Eau</option>
+                <option value="Electricité" {% if abonne.type_abonne == 'Electricité' %}selected{% endif %}>Électricité</option>
+            </select>
+
+            <div style="margin-top: 15px;">
+                <button type="submit" class="btn btn-success" style="padding:10px 20px; cursor:pointer;">Sauvegarder les modifications</button>
+                <a href="{% url 'abonnes' %}" style="margin-left:10px; text-decoration:none; color:#666;">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>

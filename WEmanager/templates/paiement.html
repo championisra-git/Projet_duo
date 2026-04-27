@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paiements</title>
-</head>
-<body>
-    
-</body>
-</html>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'WEmanagerstyle.css' %}">
+
+<div class="container">
+    <div class="card" style="max-width: 400px; margin: auto; text-align: center;">
+        <h2>Enregistrer un Paiement</h2>
+        <p>Facture : <strong>#FAC-88</strong></p>
+        <p>Montant dû : <strong>15 500 FCFA</strong></p>
+        <hr>
+        <form>
+            {% csrf_token %} <label>Mode de paiement</label>
+            <select style="width:100%; padding:10px; margin:10px 0;">
+                <option>Espèces</option>
+                <option>Mobile Money</option>
+                <option>Carte Bancaire</option>
+            </select>
+            <button class="btn btn-success" style="width:100%; border:none;">Confirmer le paiement</button>
+        </form>
+    </div>
+</div>

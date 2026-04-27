@@ -1,38 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEmanager</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'WEmanagerstyle.css' %}">
+    <title>Dashboard - WEmanager</title>
 </head>
 <body>
-   <div>
-    
-    {% if user.is_authenticated %}
+    <nav class="navbar">
+        <div class="logo">⚡ WEmanager - Suivi Factures</div>
+        <div class="menu">
+            <a href="/abonnes" style="color:white">Abonnés</a> | 
+            <a href="/factures" style="color:white">Factures</a>
+        </div>
+    </nav>
 
-        <a href="{%url 'abonnés' %}">Abonnés</a>
-        <a href="{%url 'relevés' %}">Relevés</a> 
-        <a href="{%url 'factures' %}">Factures</a>
-        <a href="{%url 'paiements' %}">Paiements</a>
-        <hr>
-        <a href="{% url 'logout' %}">Déconnexion</a>
-
-        {% else %}
-
-        <a href="{% url 'login' %}">Connexion</a>
-        <a href="{% url 'signup' %}">Inscription</a>
-
-    {% endif %}
-   </div> 
-
-   <div>
-    <h1>Bienvenue sur WEmanager</h1>
-    <p>Gérez vos abonnés, relevés, factures et paiements en toute simplicité.</p>
-    {% if user.is_authenticated %}
-        <p>Bonjour, {{ user.username }}! </p>
-    {% else %}
-        <p><a href="{% url 'login' %}">Connexion</a> | <a href="{% url 'signup' %}">Inscription</a></p>
-    {% endif %}
-   </div>
+    <div class="container">
+        <h1>Tableau de Bord</h1>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div class="card">
+                <h3>Abonnés</h3>
+                <p>Gérer les contrats eau/élec</p>
+                <a href="/abonnes" class="btn btn-primary">Voir la liste</a>
+            </div>
+            <div class="card">
+                <h3>Relevés</h3>
+                <p>Saisir les consommations</p>
+                <a href="/releves" class="btn btn-primary">Nouveau relevé</a>
+            </div>
+            <div class="card">
+                <h3>Factures</h3>
+                <p>Suivi des impayés</p>
+                <a href="/factures" class="btn btn-success">Gérer les factures</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

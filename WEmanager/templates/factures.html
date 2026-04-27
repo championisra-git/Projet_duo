@@ -1,11 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factures</title>
-</head>
-<body>
-    
-</body>
-</html>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'WEmanagerstyle.css' %}">
+
+    <div class="container">
+        <h1>Gestion des Factures</h1>
+        <a href="{% url 'ajouter_facture' %}" class="btn btn-success">+ Créer une facture</a>
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Abonné</th>
+                        <th>Montant</th>
+                        <th>Date d'émission</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in factures %}
+                    <tr>
+                        <td>{{ f.abonne_id.nom }}</td>
+                        <td>{{ f.montant }} FCFA</td>
+                        <td>{{ f.date_emission|date:"d/m/Y" }}</td>
+                        <td>
+                            <span class="badge {% if f.statut == 'Payé' %}bg-success{% else %}bg-danger{% endif %}">
+                                {{ f.statut }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{% url 'modifier_facture' f.pk %}" class="btn btn-primary">Modifier</a>
+                            <a href="{% url 'supprimer_facture' f.pk %}" class="btn btn-danger" onclick="return confirm('Supprimer ?')">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5" style="text-align:center;">Aucune facture générée.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>

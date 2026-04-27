@@ -1,11 +1,44 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abonnés</title>
-</head>
-<body>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'WEmanagerstyle.css' %}">
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Gestion des Abonnés</h1>
+            <a href="{% url 'ajouter_abonne' %}" class="btn btn-success">+ Ajouter un abonné</a>
+        </div>
     
-</body>
-</html>
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Téléphone</th>
+                        <th>Compteur n°</th>
+                        <th>Type</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in abonnes %}
+                    <tr>
+                        <td>{{ a.nom }}</td>
+                        <td>{{ a.telephone }}</td>
+                        <td>{{ a.numero_compteur }}</td>
+                        <td>{{ a.type_abonnement }}</td>
+                        <td>
+                            <a href="{% url 'modifier_abonne' a.pk %}" class="btn btn-primary">Éditer</a>
+                            <a href="{% url 'supprimer_abonne' a.pk %}" class="btn btn-danger" 
+                               onclick="return confirm('Supprimer cet abonné ?')">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5" style="text-align:center;">Aucun abonné trouvé.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>

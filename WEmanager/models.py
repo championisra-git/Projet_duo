@@ -7,7 +7,7 @@ class Abonne(models.Model):
     telephone  = models.IntegerField(unique=True)
     adresse = models.CharField(max_length=200)
     numero_compteur = models.CharField(max_length=20)
-    type_adonnement = models.CharField(max_length=100)
+    type_abonne = models.CharField(max_length=100)
 
 class Releve(models.Model):
     abonne_id = models.ForeignKey(Abonne, on_delete = models.CASCADE ,unique=True)
@@ -17,7 +17,7 @@ class Releve(models.Model):
 
 class Facture(models.Model):
     abonne_id = models.ForeignKey(Abonne, on_delete = models.CASCADE, unique=True)
-    releve_id = models.ForeignKey(Releve, on_delete = models.CASCADE ,unique=True)
+    releve_id = models.ForeignKey(Releve, on_delete = models.CASCADE ,unique=True,null=True,blank=True)
     montant = models.FloatField(max_length=20)
     date_emission = models.DateField(default=timezone.now)
     statut = models.CharField(max_length=50)

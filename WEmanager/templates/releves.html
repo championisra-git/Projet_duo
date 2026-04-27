@@ -1,11 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relevés</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'WEmanagerstyle.css' %}">
+    <title>Saisie des Relevés - WEmanager</title>
 </head>
 <body>
-    
+    <div class="container">
+        <a href="{% url 'home' %}" class="btn btn-primary">← Retour</a>
+        <div class="card" style="max-width: 500px; margin: 20px auto;">
+            <h2>Nouveau Relevé</h2>
+            
+            <form method="post">
+                {% csrf_token %} <label>Abonné (ID)</label>
+                <input type="text" name="abonne_id" placeholder="Ex: 102" style="width:100%; padding:10px; margin:10px 0;">
+                
+                <label>Mois de consommation</label>
+                <input type="month" name="mois" style="width:100%; padding:10px; margin:10px 0;">
+                
+                <label>Index Consommé (kWh/m³)</label>
+                <input type="number" name="consommation" style="width:100%; padding:10px; margin:10px 0;">
+                
+                <button type="submit" class="btn btn-success" style="width:100%; margin-top:10px; border:none; cursor:pointer;">Enregistrer le relevé</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
