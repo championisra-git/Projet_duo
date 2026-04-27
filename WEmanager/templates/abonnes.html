@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {%load static%}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abonnés</title>
+    <link rel="stylesheet" href="{% static '/css/WEmanagerstyle.css' %}">
 </head>
 <body>
+    <div class='container'>
+
+        <div class="sidebarnav">
     
+    {% if user.is_authenticated %}
+
+        <a href="{%url 'abonnés' %}">Abonnés</a>
+        <a href="{%url 'relevés' %}">Relevés</a> 
+        <a href="{%url 'factures' %}">Factures</a>
+        <a href="{%url 'paiements' %}">Paiements</a>
+        <hr>
+        <a href="{% url 'logout' %}">Déconnexion</a>
+
+        {% else %}
+
+        <a href="{% url 'login' %}">Connexion</a>
+        <a href="{% url 'signup' %}">Inscription</a>
+
+    {% endif %}
+   </div> 
+     <div class="main-content">
+            <h1>Abonné</h1>
+            <p>Enregistrez un nouvel abonné.</p>
+            {% if user.is_authenticated %}
+                <p>Bonjour, {{ user.username }}! </p>
+         <h1>Connexion</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Se connecter</button>
+        </form>
+            {% else %}
+               
+            {% endif %}
+        </div>
+
+    </div>
 </body>
 </html>

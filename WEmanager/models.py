@@ -26,4 +26,5 @@ class Paiement(models.Model):
     facture_id = models.ForeignKey(Facture, on_delete=models.CASCADE)
     montant = models.FloatField(max_length=20)
     date = models.DateField(default=timezone.now)
+
 # Create your models here.

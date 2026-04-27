@@ -1,0 +1,145 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY GLOBAL */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    background:  #2f6fbb;
+    color: #1a2b4c;
+    justify-content: center;
+    margin: 2%;
+}
+
+.container {
+    display: flex;
+    background-color: aliceblue;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+}
+
+/* SIDEBAR */
+.sidebarnav {
+    width: 240px;
+    background: linear-gradient(180deg, #1a3a5c, #2f6fbb);
+    padding: 25px 15px ;
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* LIENS SIDEBAR */
+.sidebarnav a {
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    margin: 5px 0;
+    border-radius: 6px;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+/* HOVER */
+.sidebarnav a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* HR */
+.sidebarnav hr {
+    margin: 15px 0;
+    border: 0;
+    border-top: 1px solid rgba(255,255,255,0.3);
+}
+
+/* CONTENU PRINCIPAL */
+.main-content {
+    flex: 1;
+    padding: 40px;
+}
+
+/* TITRES */
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+/* PARAGRAPHES */
+p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+}
+
+/* FORMULAIRE */
+form {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 400px;
+    margin-top: 20px;
+}
+
+/* INPUTS */
+form input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+/* FOCUS INPUT */
+form input:focus,
+form textarea:focus {
+    border-color: #2f6fbb;
+    outline: none;
+    box-shadow: 0 0 5px rgba(47,111,187,0.3);
+}
+
+/* BOUTONS */
+button {
+    background: linear-gradient(90deg, #2f6fbb, #1a3a5c);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* HOVER BOUTON */
+button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* LIENS */
+a {
+    color: #2f6fbb;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .sidebarnav {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+}

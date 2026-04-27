@@ -1,5 +1,7 @@
 # blog/forms.py
 from django import forms
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import User
 from .models import Abonne, Releve, Facture, Paiement
 class ReleveForm(forms.ModelForm):
     class Meta:
@@ -122,4 +124,37 @@ class PaiementForm(forms.ModelForm):
             'facture_id': 'Id de la facture',
             'montant': 'Montant',
             'date': 'Date du paiement',
-        }         
+        }
+
+class SignupForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'class': 'form-input',
+                'placeholder': 'Nom d\'utilisateur',
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-input',
+                'placeholder': 'Email',
+            }),
+            'password1': forms.PasswordInput(attrs={
+                'class': 'form-input',
+                'placeholder': 'Mot de passe',
+            }),
+            'password2': forms.PasswordInput(attrs={
+                'class': 'form-input',
+                'placeholder': 'Confirmer le mot de passe',
+            }),
+        }
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-input',
+        'placeholder': 'Nom d\'utilisateur',
+    }))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'class': 'form-input',
+        'placeholder': 'Mot de passe',
+    }))         
