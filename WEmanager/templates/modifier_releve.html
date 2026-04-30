@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>    
-    {% load static %}
+<head>
     <meta charset="UTF-8">
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/WEmanagerstyle.css' %}">
-    <title>Ajouter un abonné - WEmanager</title>
+    <title>Modifier un relevé - WEmanager</title>
 </head>
 <body>
     <div class="contain">
@@ -31,20 +31,24 @@
             {% endif %}
             </div>
         </nav>
-        <div class="container">
+<div class="container">
 <div class="card" style="max-width: 500px; margin: auto;">
-    <h2>Nouvel Abonné</h2>
+    <h2>Modifier le Relevé n°{{ releve.id }}</h2>
+    <p>Abonné : <strong>{{ releve.abonne.nom }}</strong></p>
     <form method="post">
         {% csrf_token %}
-        <input type="text" name="nom" placeholder="Nom complet" required style="width:100%; padding:10px; margin:5px 0;">
-        <input type="text" name="telephone" placeholder="Téléphone" style="width:100%; padding:10px; margin:5px 0;">
-        <input type="text" name="numero_compteur" placeholder="N° Compteur" style="width:100%; padding:10px; margin:5px 0;">
-        <select name="type_abonnement" style="width:100%; padding:10px; margin:5px 0;">
-            <option value="Eau">Eau</option>
-            <option value="Electricité">Électricité</option>
+        
+        <label>Montant (FCFA)</label>
+        <input type="number" name="montant" value="{{ releve.montant }}" style="width:100%; padding:10px; margin:10px 0;">
+
+        <label>Statut du paiement</label>
+        <select name="statut" style="width:100%; padding:10px; margin:10px 0;">
+            <option value="En attente" {% if releve.statut == 'En attente' %}selected{% endif %}>En attente (Impayé)</option>
+            <option value="Payé" {% if releve.statut == 'Payé' %}selected{% endif %}>Payé</option>
         </select>
-        <button type="submit" class="btn btn-success">Enregistrer</button>
-        <a href="{% url 'abonnes' %}">Annuler</a>
+
+        <button type="submit" class="btn btn-success" style="width:100%;">Enregistrer les modifications</button>
+        <a href="{% url 'factures' %}" style="display:block; text-align:center; margin-top:10px;">Annuler</a>
     </form>
 </div>
 </div>

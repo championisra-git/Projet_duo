@@ -2,10 +2,72 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factures</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/WEmanagerstyle.css' %}">
+    <title>Factures - WEmanager</title>
 </head>
 <body>
-    
+<div class="contain">
+        <nav class="navbar">
+            <div class="menu">
+            {% if user.is_authenticated %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{%url 'abonnes' %}">Abonnés</a>
+                <a href="{%url 'releves' %}">Relevés</a> 
+                <a href="{%url 'factures' %}">Factures</a>
+                <a href="{%url 'paiement' %}">Paiements</a>
+                <hr>
+                <a href="{% url 'logout' %}">Déconnexion</a>
+
+                {% else %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{% url 'login' %}">Connexion</a>
+                <a href="{% url 'signup' %}">Inscription</a>
+
+            {% endif %}
+            </div>
+        </nav>
+            <div class="container">
+        <h1>Gestion des Factures</h1>
+        <a href="{% url 'ajouter_facture' %}" class="btn btn-success">+ Créer une facture</a>
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Abonné</th>
+                        <th>Montant</th>
+                        <th>Date d'émission</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in factures %}
+                    <tr>
+                        <td>{{ f.abonne.nom }}</td>
+                        <td>{{ f.montant }} FCFA</td>
+                        <td>{{ f.date_emission|date:"d/m/Y" }}</td>
+                        <td>
+                            <span class="badge {% if f.statut == 'Payé' %}bg-success{% else %}bg-danger{% endif %}">
+                                {{ f.statut }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{% url 'modifier_facture' f.pk %}" class="btn btn-primary">Modifier</a>
+                            <a href="{% url 'supprimer_facture' f.pk %}" class="btn btn-danger" onclick="return confirm('Supprimer ?')">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5" style="text-align:center;">Aucune facture générée.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>

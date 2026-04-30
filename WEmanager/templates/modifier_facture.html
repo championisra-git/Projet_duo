@@ -1,14 +1,37 @@
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'WEmanagerstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/WEmanagerstyle.css' %}">
+    <title>Modifier une facture - WEmanager</title>
+</head>
+<body>
+    <div class="contain">
+        <nav class="navbar">
+            <div class="menu">
+            {% if user.is_authenticated %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{%url 'abonnes' %}">Abonnés</a>
+                <a href="{%url 'releves' %}">Relevés</a> 
+                <a href="{%url 'factures' %}">Factures</a>
+                <a href="{%url 'paiement' %}">Paiements</a>
+                <hr>
+                <a href="{% url 'logout' %}">Déconnexion</a>
 
+                {% else %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{% url 'login' %}">Connexion</a>
+                <a href="{% url 'signup' %}">Inscription</a>
 
-
-
-
+            {% endif %}
+            </div>
+        </nav>
+<div class="container">
 <div class="card" style="max-width: 500px; margin: auto;">
     <h2>Modifier la Facture n°{{ facture.id }}</h2>
     <p>Abonné : <strong>{{ facture.abonne_id.nom }}</strong></p>
@@ -16,7 +39,7 @@ DOCTYPE html>
         {% csrf_token %}
         
         <label>Montant (FCFA)</label>
-        <input type="number" name="montant" value="{{ facture.montant }}" style="width:100%; padding:10px; margin:10px 0;">
+        <input type="number" name="montant" value="{{ facture.montant }}" style="width:100%; padding:10px; margin:10px 0;" default="{{facture.montant}}">
 
         <label>Statut du paiement</label>
         <select name="statut" style="width:100%; padding:10px; margin:10px 0;">
@@ -28,3 +51,6 @@ DOCTYPE html>
         <a href="{% url 'factures' %}" style="display:block; text-align:center; margin-top:10px;">Annuler</a>
     </form>
 </div>
+</div>
+</body>
+</html>

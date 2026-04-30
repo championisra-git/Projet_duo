@@ -1,3 +1,14 @@
+/* VARIABLES COULEURS (BLEU + BLANC + DEGRADE) */
+:root {
+    --primary: #1a3a5c;
+    --secondary: #2f6fbb;
+    --accent: #4aa3ff;
+    --success: #27ae60;
+    --danger: #e74c3c;
+    --light: #f4f8ff;
+    --white: #ffffff;
+}
+
 /* RESET */
 * {
     margin: 0;
@@ -10,69 +21,83 @@ body {
     font-family: 'Segoe UI', sans-serif;
     display: flex;
     min-height: 100vh;
-    background:  #2f6fbb;
-    color: #1a2b4c;
+    background: linear-gradient(135deg, var(--light), var(--white));
+    color: var(--primary);
     justify-content: center;
-    margin: 2%;
 }
 
-.container {
-    display: flex;
-    background-color: aliceblue;
-    border-radius: 10px;
-    width: auto;
-    height: auto;
-}
-
-/* SIDEBAR */
-.sidebarnav {
-    width: 240px;
-    background: linear-gradient(180deg, #1a3a5c, #2f6fbb);
-    padding: 25px 15px ;
-    border-radius: 10px 0 0 10px;
+/* SIDEBAR (remplace navbar) */
+.navbar {
+    width: 240px; 
+    height: 100%;
+    padding: 25px 15px; 
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
     display: flex;
     flex-direction: column;
+    border-radius: 10px 0 0 10px;
 }
 
-/* LIENS SIDEBAR */
-.sidebarnav a {
+/* LIENS NAVBAR */
+.navbar .menu a {
+    gap: 5px;
     color: white;
     text-decoration: none;
     padding: 12px;
-    margin: 5px 0;
+    margin: 6px ;
+    display: inline-block;
     border-radius: 6px;
     transition: 0.3s;
     font-weight: 500;
 }
 
-/* HOVER */
-.sidebarnav a:hover {
+.navbar .menu a:hover {
+    zoom: 1.05;
     background: rgba(255,255,255,0.2);
 }
 
-/* HR */
-.sidebarnav hr {
-    margin: 15px 0;
-    border: 0;
-    border-top: 1px solid rgba(255,255,255,0.3);
-}
-
 /* CONTENU PRINCIPAL */
-.main-content {
-    flex: 1;
+.contain{
+    max-width: 1200px;
+    padding: 20px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 10px;
+    display: flex;
+}
+.container {
+    flex: 1; 
     padding: 40px;
+    width: auto;
 }
 
-/* TITRES */
-h1 {
-    font-size: 2.2rem;
-    margin-bottom: 10px;
+/* CARTES */
+.card {
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    padding: 12px;
+    margin-bottom: 15px;
 }
 
-/* PARAGRAPHES */
-p {
-    margin: 10px 0;
-    font-size: 1.1rem;
+/* TABLEAU */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: white;
+    text-align: left;
+    padding: 12px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
 }
 
 /* FORMULAIRE */
@@ -81,15 +106,24 @@ form {
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    max-width: 400px;
+    width:100%;
+    max-width: 450px;
     margin-top: 20px;
+    justify-content: center;
 }
-
+.form-input{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: 0.3s;   
+}
 /* INPUTS */
 form input,
 form select,
 form textarea {
-    width: 100%;
+    width: 70%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -97,34 +131,82 @@ form textarea {
     transition: 0.3s;
 }
 
-/* FOCUS INPUT */
-form input:focus,
-form textarea:focus {
-    border-color: #2f6fbb;
-    outline: none;
-    box-shadow: 0 0 5px rgba(47,111,187,0.3);
+.search-form{
+    background: transparent;
+    border: none;
+    width: auto;
+    box-shadow: none;
+    
 }
 
-/* BOUTONS */
-button {
-    background: linear-gradient(90deg, #2f6fbb, #1a3a5c);
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 6px;
-    cursor: pointer;
+.search {
+    width: 100%;
+    padding: 10px;
     transition: 0.3s;
 }
+.search:focus {
+    border-color: var(--secondary);
+    outline: none;
+    box-shadow: 0 0 6px rgba(47,111,187,0.3);
+}
 
-/* HOVER BOUTON */
-button:hover {
+/* FOCUS */
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: var(--secondary);
+    outline: none;
+    box-shadow: 0 0 6px rgba(47,111,187,0.3);
+}
+
+/* BOUTONS GENERAUX */
+button,
+.btn {
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+/* VARIATIONS BOUTONS */
+.btn-primary {
+    background: linear-gradient(90deg, var(--secondary), var(--primary));
+}
+
+.btn-success {
+    background: linear-gradient(90deg, #2ecc71, #27ae60);
+}
+
+.btn-danger {
+    background: linear-gradient(90deg, #ff6b6b, #e74c3c);
+}
+
+/* HOVER BOUTONS */
+button:hover,
+.btn:hover {
     transform: translateY(-2px);
     opacity: 0.9;
 }
 
+/* TITRES */
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+/* TEXTE */
+p {
+    margin: 10px 0;
+    font-size: 1.05rem;
+}
+
 /* LIENS */
 a {
-    color: #2f6fbb;
+    color: var(--secondary);
 }
 
 /* RESPONSIVE */
@@ -133,13 +215,13 @@ a {
         flex-direction: column;
     }
 
-    .sidebarnav {
-        width: 100%;
+    .navbar {
+        width: 20%;
         flex-direction: row;
         justify-content: space-around;
     }
 
-    .main-content {
+    .container {
         padding: 20px;
     }
 }

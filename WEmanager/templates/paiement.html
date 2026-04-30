@@ -3,22 +3,49 @@
 <head>
     <meta charset="UTF-8">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'WEmanagerstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/WEmanagerstyle.css' %}">
+    <title>Paiement - WEmanager</title>
+</head>
+<body>
+<div class="contain">
+        <nav class="navbar">
+            <div class="menu">
+            {% if user.is_authenticated %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{%url 'abonnes' %}">Abonnés</a>
+                <a href="{%url 'releves' %}">Relevés</a> 
+                <a href="{%url 'factures' %}">Factures</a>
+                <a href="{%url 'paiement' %}">Paiements</a>
+                <hr>
+                <a href="{% url 'logout' %}">Déconnexion</a>
 
+                {% else %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{% url 'login' %}">Connexion</a>
+                <a href="{% url 'signup' %}">Inscription</a>
+
+            {% endif %}
+            </div>
+        </nav>
 <div class="container">
     <div class="card" style="max-width: 400px; margin: auto; text-align: center;">
         <h2>Enregistrer un Paiement</h2>
-        <p>Facture : <strong>#FAC-88</strong></p>
-        <p>Montant dû : <strong>15 500 FCFA</strong></p>
         <hr>
-        <form>
+        <form method="post">
             {% csrf_token %} <label>Mode de paiement</label>
+            {{form.as_p}}
             <select style="width:100%; padding:10px; margin:10px 0;">
                 <option>Espèces</option>
                 <option>Mobile Money</option>
                 <option>Carte Bancaire</option>
             </select>
-            <button class="btn btn-success" style="width:100%; border:none;">Confirmer le paiement</button>
+            <button type="submit" class="btn btn-success" style="width:100%; border:none;">Confirmer le paiement</button>
         </form>
     </div>
 </div>
+</body>
+</html>

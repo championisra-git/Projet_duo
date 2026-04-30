@@ -1,4 +1,3 @@
-# blog/forms.py
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
@@ -6,36 +5,24 @@ from .models import Abonne, Releve, Facture, Paiement
 class ReleveForm(forms.ModelForm):
     class Meta:
         model = Releve
-        fields = ['abonne_id', 'mois', 'consommation', 'date_releve']
+        fields = ['abonne', 'mois', 'consommation', 'date_releve']
         widgets = {
-            'abonne_id': forms.TextInput(attrs={
+            'abonne': forms.Select(attrs={'class': 'form-select'}),
+            'mois': forms.Select(attrs={'class': 'form-select'}),
+            'consommation': forms.NumberInput(attrs={
                 'class': 'form-input',
-                'placeholder': 'Id de l\'abonne',
-        }),
-        'mois': forms.Select(attrs={
-            'class': 'form-select',
-        }),
-        'consommation': forms.NumberInput(attrs={
-            'class': 'form-input',
-            'placeholder': 'Consommation',
-            'step': 0.01
-        }),
-        'date_releve': forms.DateInput(attrs={
-            'class': 'form-input',
-            'type': 'date'
-        })
-        },
-        
-        labels = {
-            'abonne_id': 'Id de l\'abonne',
-            'mois': 'Mois',
-            'consommation': 'Consommation',
-            'date_releve': 'Date du relevé',
- }
+                'placeholder': 'Consommation',
+                'step': 0.01
+            }),
+            'date_releve': forms.DateInput(attrs={
+                'class': 'form-input',
+                'type': 'date'
+            }),
+        }
 class AbonneForm(forms.ModelForm):
     class Meta:
         model = Abonne
-        fields = ['nom', 'telephone', 'adresse', 'numero_compteur', 'type_adonnement']
+        fields = ['nom', 'telephone', 'adresse', 'numero_compteur', 'type_abonne']
         widgets = {
             'nom': forms.TextInput(attrs={
                 'class': 'form-input',
@@ -53,7 +40,8 @@ class AbonneForm(forms.ModelForm):
                 'class': 'form-input',
                 'placeholder': 'Numéro de compteur',
             }),
-            'type_adonnement': forms.Select(attrs={
+            'type_abonne': forms.Select(attrs={
+                'choices': [('eau', 'Eau'), ('electricite', 'Électricité')],
                 'class': 'form-select',
             })
        
@@ -64,21 +52,15 @@ class AbonneForm(forms.ModelForm):
             'telephone': 'Téléphone',
             'adresse': 'Adresse',
             'numero_compteur': 'Numéro de compteur',
-            'type_adonnement': 'Type d\'abonnement',
+            'type_abonne': 'Type d\'abonnement',
         }
 class FactureForm(forms.ModelForm):
     class Meta:
         model = Facture
-        fields = ['abonne_id', 'releve_id', 'montant', 'date_emission', 'statut']
+        fields = ['abonne', 'releve', 'montant', 'date_emission', 'statut']
         widgets = {
-            'abonne_id': forms.TextInput(attrs={
-                'class': 'form-input',
-                'placeholder': 'Id de l\'abonne',
-            }),
-            'releve_id': forms.TextInput(attrs={
-                'class': 'form-input',
-                'placeholder': 'Id du relevé',
-            }),
+            'abonne': forms.Select(attrs={'class': 'form-select'}),
+            'releve': forms.Select(attrs={'class': 'form-select'}),
             'montant': forms.NumberInput(attrs={
                 'class': 'form-input',
                 'placeholder': 'Montant',
@@ -88,27 +70,14 @@ class FactureForm(forms.ModelForm):
                 'class': 'form-input',
                 'type': 'date'
             }),
-            'statut': forms.Select(attrs={
-                'class': 'form-select',
-            })
-        },
-        
-        labels = {
-            'abonne_id': 'Id de l\'abonne',
-            'releve_id': 'Id du relevé',
-            'montant': 'Montant',
-            'date_emission': 'Date d\'émission',
-            'statut': 'Statut de la facture',
+            'statut': forms.Select(attrs={'class': 'form-select'}),
         }
 class PaiementForm(forms.ModelForm):
     class Meta:
         model = Paiement
-        fields = ['facture_id', 'montant', 'date']
+        fields = ['facture', 'montant', 'date']
         widgets = {
-            'facture_id': forms.TextInput(attrs={
-                'class': 'form-input',
-                'placeholder': 'Id de la facture',
-            }),
+            'facture': forms.Select(attrs={'class': 'form-select'}),
             'montant': forms.NumberInput(attrs={
                 'class': 'form-input',
                 'placeholder': 'Montant',
@@ -118,14 +87,7 @@ class PaiementForm(forms.ModelForm):
                 'class': 'form-input',
                 'type': 'date'
             })
-        },
-        
-        labels = {
-            'facture_id': 'Id de la facture',
-            'montant': 'Montant',
-            'date': 'Date du paiement',
         }
-
 class SignupForm(UserCreationForm):
     class Meta:
         model = User
@@ -151,7 +113,6 @@ class SignupForm(UserCreationForm):
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-input',
         'placeholder': 'Nom d\'utilisateur',
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={

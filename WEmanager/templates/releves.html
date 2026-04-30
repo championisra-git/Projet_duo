@@ -3,10 +3,74 @@
 <head>
     <meta charset="UTF-8">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'WEmanagerstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/WEmanagerstyle.css' %}">
     <title>Saisie des Relevés - WEmanager</title>
 </head>
 <body>
-    
+    <div class="contain">
+        <nav class="navbar">
+            <div class="menu">
+            {% if user.is_authenticated %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{%url 'abonnes' %}">Abonnés</a>
+                <a href="{%url 'releves' %}">Relevés</a> 
+                <a href="{%url 'factures' %}">Factures</a>
+                <a href="{%url 'paiement' %}">Paiements</a>
+                <hr>
+                <a href="{% url 'logout' %}">Déconnexion</a>
+
+                {% else %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{% url 'login' %}">Connexion</a>
+                <a href="{% url 'signup' %}">Inscription</a>
+
+            {% endif %}
+            </div>
+        </nav>
+    <div class="container">
+        <a href="{% url 'home' %}" class="btn btn-primary">← Retour</a>
+
+
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Abonné</th>
+                        <th>mois</th>
+                        <th>Consommation</th>
+                        <th>date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in releves %}
+                    <tr>
+                        <td>{{ r.abonne.nom }}</td>
+                        <td>{{ r.mois }}</td>
+                        <td>{{ r.consommation }}</td>
+                        <td>{{ r.date_releve|date:"d/m/Y" }}</td>
+                        <td>
+                            <span class="badge {% if r.statut == 'Payé' %}bg-success{% else %}bg-danger{% endif %}">
+                                {{ r.statut }}
+                            </span>
+                        </td>
+                         <td>
+                            <a href="{% url 'modifier_releve' r.pk %}" class="btn btn-primary">Modifier</a>
+                            <a href="{% url 'supprimer_releve' r.pk %}" class="btn btn-danger" onclick="return confirm('Supprimer ?')">Supprimer</a>
+                        </td>
+                      
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5" style="text-align:center;">Aucun releves généré.</td></tr>
+                    {% endfor %}
+                    <a href="{% url 'ajouter_releve' %}" class="btn btn-success">+ Ajouter un relevé</a>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
 </body>
 </html>

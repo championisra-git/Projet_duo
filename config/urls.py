@@ -20,12 +20,26 @@ from WEmanager import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('releve/', views.enregistrement_relevé, name='relevé'),
-    path('abonne/', views.enregistrement_abonne, name="abonné"),
-    path('facture/', views.enregistrement_facture, name="facture"), 
-    path('paiement/', views.enregistrement_paiement, name="paiement"),
-    path('login/', views.login_view, name='login'),         
+    path('home/', views.home, name='home_alt'),  # La page d'accueil par défaut
+    path('paiement/', views.paiement, name='paiement'),
+    # connexion et inscription
+    path('login/', views.login_view, name='login'),
+    path('signup/', views.signup, name='signup'),
     path('logout/', views.logout_view, name='logout'),
-    path('signup/', views.signup_view, name='signup'),  
-
+    # Abonnés
+    path('abonnes/', views.liste_abonnes, name='abonnes'),
+    path('abonnes/ajouter/', views.ajouter_abonne, name='ajouter_abonne'),
+    path('abonnes/modifier/<int:pk>/', views.modifier_abonne, name='modifier_abonne'),
+    path('abonnes/supprimer/<int:pk>/', views.supprimer_abonne, name='supprimer_abonne'),
+    # Relevés
+    path('releves/', views.liste_releves, name='releves'),
+    path('releves/ajouter/', views.ajouter_releve, name='ajouter_releve'),
+    path('releves/modifier/<int:pk>/', views.modifier_releve, name='modifier_releve'),
+    path('releves/supprimer/<int:pk>/', views.supprimer_releve, name='supprimer_releve'),
+    # Factures
+    path('factures/', views.liste_factures, name='factures'),
+    path('factures/modifier/abonne/<int:releve>/', views.modifier_facture_abonne, name='modifier_facture_abonne'),
+    path('factures/modifier/<int:pk>/', views.modifier_facture, name='modifier_facture'),
+    path('factures/supprimer/<int:pk>/', views.supprimer_facture, name='supprimer_facture'),
+    path('factures/ajouter/', views.ajouter_facture, name='ajouter_facture'),
 ]

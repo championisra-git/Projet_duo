@@ -1,13 +1,75 @@
-
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    {%load static%}
+<head>    
+    {% load static %}
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abonnés</title>
-</head>
+    <link rel="stylesheet" href="{% static 'css/WEmanagerstyle.css' %}">
+    <title>Abonnés - WEmanager</title>
+</head> 
 <body>
-    
+    <div class="contain">
+        <nav class="navbar">
+            <div class="menu">
+            {% if user.is_authenticated %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{%url 'abonnes' %}">Abonnés</a>
+                <a href="{%url 'releves' %}">Relevés</a> 
+                <a href="{%url 'factures' %}">Factures</a>
+                <a href="{%url 'paiement' %}">Paiements</a>
+                <hr>
+                <a href="{% url 'logout' %}">Déconnexion</a>
+
+                {% else %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{% url 'login' %}">Connexion</a>
+                <a href="{% url 'signup' %}">Inscription</a>
+
+            {% endif %}
+            </div>
+        </nav>
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>Gestion des Abonnés</h1>
+                <a href="{% url 'ajouter_abonne' %}" class="btn btn-success">+ Ajouter un abonné</a>
+                <form class="search-form" method="GET">
+                    <input type="text" class="search" name="search" placeholder="Rechercher un abonné...">
+                    <button type="submit">Rechercher</button>
+                </form>
+            </div>
+        
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Téléphone</th>
+                            <th>Compteur n°</th>
+                            <th>Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                        {% for a in abonnes %}
+                        <tr>
+                            <td>{{ a.nom }}</td>
+                            <td>{{ a.telephone }}</td>
+                            <td>{{ a.numero_compteur }}</td>
+                            <td>{{ a.type_abonne }}</td>
+                            <td>
+                                <a href="{% url 'modifier_abonne' a.pk %}" class="btn btn-primary">Éditer</a>
+                                <a href="{% url 'supprimer_abonne' a.pk %}" class="btn btn-danger" 
+                                onclick="return confirm('Supprimer cet abonné ?')">Supprimer</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="5" style="text-align:center;">Aucun abonné trouvé.</td></tr>
+                        {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

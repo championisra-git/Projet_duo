@@ -3,8 +3,34 @@
 <head>
     <meta charset="UTF-8">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'WEmanagerstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/WEmanagerstyle.css' %}">
+    <title>Modifier un abonné - WEmanager</title>
+</head>
+<body>
+    <div class="contain">
+        <nav class="navbar">
+            <div class="menu">
+            {% if user.is_authenticated %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{%url 'abonnes' %}">Abonnés</a>
+                <a href="{%url 'releves' %}">Relevés</a> 
+                <a href="{%url 'factures' %}">Factures</a>
+                <a href="{%url 'paiement' %}">Paiements</a>
+                <hr>
+                <a href="{% url 'logout' %}">Déconnexion</a>
 
+                {% else %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{% url 'login' %}">Connexion</a>
+                <a href="{% url 'signup' %}">Inscription</a>
+
+            {% endif %}
+            </div>
+        </nav>
 <div class="container">
     <div class="card" style="max-width: 500px; margin: auto; padding: 20px; background: white; border-radius: 8px;">
         <h2>Modifier l'abonné : {{ abonne.nom }}</h2>
@@ -37,3 +63,5 @@
         </form>
     </div>
 </div>
+</body>
+</html>

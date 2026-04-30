@@ -3,27 +3,46 @@
 <head>
     <meta charset="UTF-8">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'WEmanagerstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/WEmanagerstyle.css' %}">
+    <title>Ajouter un relevé - WEmanager</title>
+</head>
+<body>
+     <div class="contain">
+        <nav class="navbar">
+            <div class="menu">
+            {% if user.is_authenticated %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{%url 'abonnes' %}">Abonnés</a>
+                <a href="{%url 'releves' %}">Relevés</a> 
+                <a href="{%url 'factures' %}">Factures</a>
+                <a href="{%url 'paiement' %}">Paiements</a>
+                <hr>
+                <a href="{% url 'logout' %}">Déconnexion</a>
 
+                {% else %}
+                <div class="logo"><h2 style="color: white;">⚡ WEmanager - Suivi Factures</h2></div>
+                <a href="{% url 'home' %}">Accueil</a>
+            <hr>
+                <a href="{% url 'login' %}">Connexion</a>
+                <a href="{% url 'signup' %}">Inscription</a>
+
+            {% endif %}
+            </div>
+        </nav>
+<div class="container">
+    <a href="{% url 'releves' %}" class="btn btn-primary">← Retour</a>
 
 <div class="card" style="max-width: 500px; margin: auto;">
     <h2>Saisir un Relevé</h2>
     <form method="post">
         {% csrf_token %}
-        
-        <label>Sélectionner l'Abonné</label>
-        <select name="abonne_id" required style="width:100%; padding:10px; margin:10px 0;">
-            {% for a in abonnes %}
-                <option value="{{ a.id }}">{{ a.nom }} (Compteur: {{ a.numero_compteur }})</option>
-            {% endfor %}
-        </select>
-
-        <label>Mois</label>
-        <input type="month" name="mois" required style="width:100%; padding:10px; margin:10px 0;">
-
-        <label>Index Consommé</label>
-        <input type="number" name="consommation" required style="width:100%; padding:10px; margin:10px 0;">
-
+        {{ form.as_p }}
         <button type="submit" class="btn btn-success" style="width:100%;">Générer le relevé</button>
     </form>
 </div>
+</div>
+</div>
+</body>
+</html>
